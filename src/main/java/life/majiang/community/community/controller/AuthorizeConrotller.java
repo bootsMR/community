@@ -32,7 +32,6 @@ public class AuthorizeConrotller {
     @GetMapping("/callback")
     public String callback(@RequestParam(name="code")String code,
                            @RequestParam(name="state")String state,
-                           HttpServletRequest request,
                            HttpServletResponse response){
         AccessTokenDTO accessTokenDTO=new AccessTokenDTO();
         accessTokenDTO.setCode(code);
@@ -44,7 +43,7 @@ public class AuthorizeConrotller {
         GithubUser githubUser = githubProvider.getUser(accessToken);
         //System.out.println(githubUser.getName());
 
-        if(githubUser!=null){
+        if(githubUser!=null  && githubUser.getId()!=null){
             User user = new User();
             String token = UUID.randomUUID().toString();
             user.setToken(token);
@@ -53,8 +52,8 @@ public class AuthorizeConrotller {
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);
-
-            response.addCookie(new Cookie("token",token));
+            Cookie cookie = new Cookie("token",token);
+            response.addCookie(cookie);
             return "redirect:/";
             //登录成功,写cookie 和session
 
