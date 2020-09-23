@@ -52,18 +52,18 @@ public class publishController {
         //User user = (User) request.getSession().getAttribute("user");
         User user = new User();
         Cookie[] cookies = request.getCookies();
-        if (cookies==null){
-            return null;
-        }
-        for (Cookie cookie:cookies){
-            if (cookie.getName().equals("token")){
-                String token=cookie.getValue();
-                user = userMapper.findByToken(token);
-                if(user !=null){
-                    request.getSession().setAttribute("user",user);
+        if (cookies != null && cookies.length != 0) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    String token = cookie.getValue();
+                    user = userMapper.findByToken(token);
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                    }
+                    break;
                 }
-                break;
             }
+        }
             if (user ==null){
                 model.addAttribute("error","用户未登录");
                 return "publish";//如果没登陆着返回publish页面
@@ -73,11 +73,11 @@ public class publishController {
         quesstion.setDescription(description);
         quesstion.setTag(tag);
         quesstion.setCreator(user.getId());
-        quesstion.setGmt_create(System.currentTimeMillis());
-        quesstion.setGmt_modified(quesstion.getGmt_create());
+        quesstion.setGmtCreate(System.currentTimeMillis());
+        quesstion.setGmtModified(quesstion.getGmtModified());
         questionMapper.create(quesstion);
         return "redirect:publish";//如果登录成功，则重定向回首页
-    }return "publish";
+
     }
 }
 
