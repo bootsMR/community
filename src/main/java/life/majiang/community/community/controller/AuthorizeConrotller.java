@@ -51,7 +51,7 @@ public class AuthorizeConrotller {
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
-            user.setAvatarUrl(user.getAvatarUrl());
+            user.setAvatarUrl(githubUser.getAvatarUrl());
             userMapper.insert(user);
             Cookie cookie = new Cookie("token",token);
             response.addCookie(cookie);

@@ -20,3 +20,7 @@
 2.完成publishController 的get请求和post请求，进行数据传送<br>
 3.建立QuestionMapper -》创建发布话题的sql功能<br>
 4.完善了发布页面<br>
+##第五天（p22-p24）
+1.完成lombok支持，对持久层的get，set进行支持<br>
+2.完成首页的数据交互<br>
+3.添加Service<br>
