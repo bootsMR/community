@@ -17,20 +17,11 @@ public class PaginationDTO {
     private List<Integer> pages = new ArrayList<>();//页面列
     private Integer totalPage;
     // 分页方法
-    public void setPagination(Integer totalCount, Integer page, Integer size) {
+    public void setPagination(Integer totalPage, Integer page) {
+
+        this.totalPage = totalPage;
         this.page = page;
 
-        if (totalCount % size == 0){
-            totalPage = totalCount/size;
-        }else {
-            totalPage = totalCount/size + 1 ;
-        }
-        if (page <1){
-            page =1;
-        }
-        if (page>totalPage){
-            page = totalPage;
-        }
         //显示前123的逻辑和显示最后三个的逻辑
         pages.add(page);
         for (int i =1 ; i<=3 ; i++){

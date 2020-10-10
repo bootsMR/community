@@ -12,15 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class publishController {
     @Autowired
     private QuestionMapper questionMapper;//获取Mapper对象，然后调用它的方法
-    @Autowired
-    private UserMapper userMapper;
     @GetMapping("/publish")//get请求
     public String publish() {
         return "publish";
@@ -49,33 +47,19 @@ public class publishController {
             return "publish";
         }
 
-        //User user = (User) request.getSession().getAttribute("user");
-        User user = new User();
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length != 0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
+        User user = (User) request.getSession().getAttribute("user");
             if (user ==null){
                 model.addAttribute("error","用户未登录");
                 return "publish";//如果没登陆着返回publish页面
             }
-        Question quesstion = new Question();
-        quesstion.setTitle(title);
-        quesstion.setDescription(description);
-        quesstion.setTag(tag);
-        quesstion.setCreator(user.getId());
-        quesstion.setGmtCreate(System.currentTimeMillis());
-        quesstion.setGmtModified(quesstion.getGmtModified());
-        questionMapper.create(quesstion);
+        Question question = new Question();
+        question.setTitle(title);
+        question.setDescription(description);
+        question.setTag(tag);
+        question.setCreator(user.getId());
+        question.setGmtCreate(System.currentTimeMillis());
+        question.setGmtModified(question.getGmtModified());
+        questionMapper.create(question);
         return "redirect:publish";//如果登录成功，则重定向回首页
 
     }
