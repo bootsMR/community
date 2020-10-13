@@ -3,10 +3,9 @@ package life.majiang.community.community.controller;
 
 import life.majiang.community.community.dto.AccessTokenDTO;
 import life.majiang.community.community.dto.GithubUser;
-import life.majiang.community.community.mapper.UserMapper;
-import life.majiang.community.community.model.User;
 import life.majiang.community.community.provider.GithubProvider;
 import life.majiang.community.community.service.UserService;
+import life.majiang.community.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
