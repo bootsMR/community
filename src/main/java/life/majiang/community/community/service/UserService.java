@@ -19,7 +19,7 @@ public class UserService {
         UserExample userExample = new UserExample();
         userExample.createCriteria()
                 .andAccountIdEqualTo(user.getAccountId());
-        List<life.majiang.community.model.User> users = userMapper.selectByExample(userExample);
+        List<User> users = userMapper.selectByExample(userExample);
         if (users.size() == 0) {
             // 插入
             user.setGmtCreate(System.currentTimeMillis());
