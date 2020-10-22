@@ -9,4 +9,5 @@ public interface QuestionExtMapper {
     int incCommentCount(Question record);
 
 
+
 }

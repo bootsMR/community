@@ -36,6 +36,7 @@ public class QuestionController {
             throw new CustomizeException(CustomizeErrorCode.INVALID_INPUT);
         }
         QuestionDTO questionDTO = questionService.getById(questionId);
+        List<CommentDTO> comments = commentService.listByTargetId(questionId, CommentTypeEnum.QUESTION);
 
         //累加阅读数
         questionService.incView(questionId);
